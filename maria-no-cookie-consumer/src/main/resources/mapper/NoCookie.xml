@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="noCookie">
+	<insert id="insertDomainFreq" parameterType="java.util.List">
+		INSERT INTO dreamsearch.DOMAIN_FREQ
+		(
+			 AUID,
+			 FREQ_TYPE,
+			 DOMAIN_URL,
+			 FREQ_CNT,
+			 EXPIRES_TIME,
+			 REG_DATE,
+			 UPD_DATE
+		 )
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			 '${item.auId}',
+			 '${item.freqType}',
+			 '${item.domainUrl}',
+			 '${item.freqCnt}',
+			 NOW(),
+			 NOW(),
+			 NOW()
+		 )
+		ON DUPLICATE KEY UPDATE
+			FREQ_CNT = '${item.freqCnt}',
+			EXPIRES_TIME = NOW(),
+			UPD_DATE = NOW()
+		</foreach>
+
+	</insert>
+
+	<insert id="insertShopFreq" parameterType="java.util.List">
+		INSERT INTO dreamsearch.SHOP_FREQ
+		(
+			AUID,
+			FREQ_TYPE,
+			SITE_CODE,
+			PCODE,
+			FREQ_CNT,
+			EXPIRES_TIME,
+			REG_DATE,
+			UPD_DATE
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.auId},
+			#{item.freqType},
+			#{item.siteCode},
+			#{item.pCode},
+			#{item.freqCnt},
+			#{item.expireTime},
+			NOW(),
+			NOW()
+		)
+		ON DUPLICATE KEY UPDATE
+			FREQ_CNT = #{item.freqCnt},
+			EXPIRES_TIME = NOW(),
+			UPD_DATE = NOW()
+		</foreach>
+	</insert>
+
+	<insert id="insertKeywordFreq" parameterType="java.util.List">
+		INSERT INTO dreamsearch.KEYWORD_FREQ
+		(
+			AUID,
+			FREQ_TYPE,
+			KEYWORD,
+			FREQ_CNT,
+			EXPIRES_TIME,
+			REG_DATE,
+			UPD_DATE
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.auId},
+			#{item.freqType},
+			#{item.keyword},
+			#{item.pCode},
+			#{item.freqCnt},
+			#{item.expireTime},
+			NOW(),
+			NOW()
+		)
+		ON DUPLICATE KEY UPDATE
+			FREQ_CNT = #{item.freqCnt},
+			EXPIRES_TIME = NOW(),
+			UPD_DATE = NOW()
+		</foreach>
+
+	</insert>
+
+	<insert id="insertAppFreq" parameterType="java.util.List">
+		INSERT INTO dreamsearch.KEYWORD_FREQ
+		(
+			AUID,
+			FREQ_TYPE,
+			SITE_CODE,
+			FREQ_CNT,
+			EXPIRES_TIME,
+			REG_DATE,
+			UPD_DATE
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(
+			#{item.auId},
+			#{item.freqType},
+			#{item.siteCode},
+			#{item.pCode},
+			#{item.freqCnt},
+			#{item.expireTime},
+			NOW(),
+			NOW()
+		)
+		ON DUPLICATE KEY UPDATE
+			FREQ_CNT = #{item.freqCnt},
+			EXPIRES_TIME = NOW(),
+			UPD_DATE = NOW()
+		</foreach>
+	</insert>
+
+
+</mapper>

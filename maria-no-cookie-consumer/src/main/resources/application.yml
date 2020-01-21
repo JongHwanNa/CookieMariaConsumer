@@ -1,0 +1,71 @@
+server:
+  port: 8080
+---
+
+spring:
+  profiles: local
+  application:
+    name: njh-sample
+  datasource:
+    hikari:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:mysql://172.20.0.106:3306/dreamsearch?useSSL=false&allowMultiQueries=true&characterEncoding=utf8&serverTimezone=UTC
+      username: sbbang
+      password: sbbang2019!!
+      idle-timeout: 10000
+      auto-commit: true
+      connection-test-query: select 1
+      maximum-pool-size: 5
+      pool-name: hikariCP-pool
+    dbcp2:
+      validation-query: select 1
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: njh
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+
+
+
+logging:
+  level:
+    root: info
+  level.org.hibernate:
+    SQL: trace
+    type.descriptor.sql.BasicBinder: trace
+
+---
+
+spring:
+  profiles: dev
+  application:
+    name: njh
+  datasource:
+    hikari:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:mysql://172.20.0.106:3306/dreamsearch?useSSL=false&allowMultiQueries=true&characterEncoding=utf8&serverTimezone=UTC
+      username: jhna
+      password: skwhdghks123!
+      idle-timeout: 10000
+      auto-commit: true
+      connection-test-query: select 1
+      maximum-pool-size: 5
+      pool-name: hikariCP-pool
+    dbcp2:
+      validation-query: select 1
+  kafka:
+    bootstrap-servers: 10.251.0.222:9092,10.251.0.223:9092,10.251.0.224:9092
+    consumer:
+      group-id: group-mobon-cookiestore
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+
+
+
+logging:
+  level:
+    root: info
+  level.org.hibernate:
+    SQL: trace
+    type.descriptor.sql.BasicBinder: trace
